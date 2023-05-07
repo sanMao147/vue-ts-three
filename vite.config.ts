@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import * as path from 'path'
+import glsl from 'vite-plugin-glsl'
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
@@ -8,7 +9,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src')
     }
   },
-  plugins: [vue()],
+  plugins: [vue(), glsl()],
   server: {
     // port: 5173, // 启动端口
     // hmr: {

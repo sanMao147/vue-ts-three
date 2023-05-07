@@ -2,7 +2,7 @@ import { createWebHistory, createRouter, RouteRecordRaw } from 'vue-router'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/car',
+    redirect: 'car',
     name: 'Root'
   },
   {
