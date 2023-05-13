@@ -7,12 +7,14 @@ import {
   Scene,
   WebGLRenderer
 } from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 export default class ThreeClass {
-  scene: Scene | null = null
-  camera: PerspectiveCamera | null = null
-  renderer: WebGLRenderer | null = null
-  ambientLignt: AmbientLight | null = null
-  mesh: Mesh | null = null
+  scene!: Scene
+  camera!: PerspectiveCamera
+  renderer!: WebGLRenderer
+  ambientLignt!: AmbientLight
+  mesh!: Mesh
+  controls!: OrbitControls
   container: HTMLCanvasElement
   constructor(el: HTMLCanvasElement) {
     this.container = el
@@ -33,7 +35,7 @@ export default class ThreeClass {
       0.1,
       1000
     )
-    this.camera.position.z = 5
+    this.camera.position.z = 50
   }
 
   setRenderer(): void {
@@ -44,7 +46,12 @@ export default class ThreeClass {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     // document.body.appendChild(this.renderer.domElement)
   }
-
+  setControl(): void {
+    if (this.camera) {
+      this.controls = new OrbitControls(this.camera, this.container)
+      this.controls.enableDamping = true
+    }
+  }
   setLight(): void {
     if (this.scene) {
       this.ambientLignt = new AmbientLight(0xffffff)
@@ -54,7 +61,7 @@ export default class ThreeClass {
   setCube(): void {
     if (this.scene) {
       const geometry = new BoxGeometry(10, 10, 10)
-      const meterial = new MeshBasicMaterial({ color: 'ff3200' })
+      const meterial = new MeshBasicMaterial({ color: 'FC1944' })
       this.mesh = new Mesh(geometry, meterial)
       this.scene.add(this.mesh)
     }
@@ -67,6 +74,9 @@ export default class ThreeClass {
   animate(): void {
     if (this.mesh) {
       this.render()
+
+      this.controls.update()
+
       // requestAnimationFrame(this.animate.bind(this))
       window.requestAnimationFrame(this.animate)
       this.mesh.rotation.x += 0.01
