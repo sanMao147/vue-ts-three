@@ -13,7 +13,7 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
       requireAuth: false
     },
-    component: () => import('@/pages/three/carShow.vue')
+    component: () => import('@/pages/three/carPlay.vue')
   },
   {
     path: '/login',
